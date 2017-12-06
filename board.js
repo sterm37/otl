@@ -2,7 +2,6 @@
 /*초록색 네모크기, 중간 검은색줄 두께, 바깥 검은색 두꼐, 보드 가로세로 칸갯수  */
 function genBoard(SQUARE_SIZE, GRID_SIZE,OUT_BOARDER,BOARD_SIZE){
 	return svg(function(svg){
-
 		svg.width  = SQUARE_SIZE * BOARD_SIZE + GRID_SIZE * (BOARD_SIZE - 1) + OUT_BOARDER * 2;
 		svg.height = svg.width;
 

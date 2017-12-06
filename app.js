@@ -16,6 +16,9 @@ io.sockets.on('connection',function(socket){
 	socket.on('enter',function(){
 		var game = GAME,player = game.players.length+1;
 		game.players.push(socket);
+		socket.on('test',function(){
+			console.log('test');
+		});
 
 		socket.emit('accept',{player: player, board: game.board});
 
@@ -41,8 +44,9 @@ io.sockets.on('connection',function(socket){
 			else
 				gameEnd(game, othello.anotherPlayer(player));
 		});
-
+		console.log('ready')
 		if(game.players.length === 2){
+			console.log('start')
 			game.turn = 1;
 			initGame();
 			postBoard(game);
@@ -51,6 +55,7 @@ io.sockets.on('connection',function(socket){
 });
 
 function initGame(){
+	console.log('init');
 	GAME = {
 		players: [],
 		board: othello.BoardArray(8),
@@ -64,7 +69,7 @@ function handler (req,res){
 }
 
 function postBoard(game){
-	game.players.map(function{
+	game.players.map(function(player){
 		player.emit('board',{board: game.board, turn: game.turn});
 	});
 }
@@ -73,7 +78,7 @@ function gameEnd(game,winner){
 	game.players.map(function(player){
 		player.emit('game end', {
 			winner: winner,
-			points: [othello,count(game.board, 1),othello.count(game.board, 2)]
+			points: [othello.count(game.board, 1),othello.count(game.board, 2)]
 		});
 	});
 }
