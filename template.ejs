@@ -6,11 +6,34 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<%- script %>
+	<%- chat %>
+	<style>
+		ul {
+			height: <%= hei %>
+		}
+	</style>
 </head>
 <body>
-	<header>
+	<div data-role = "header">
 		<h2 id="message"><%-message %></h2>
-	</header>
-	<%- boardsvg %>
+	</div>
+	<div data-role = "content">
+		<table border="10">
+			<tr>
+				<td>
+					<%- boardsvg %>
+				</td>
+				<td style="background: grey;" valign="bottom" align="left" height="<%= hei %>>" style="">
+					<ul id="content" data-role="listview" data-inset="true" >
+						
+					</ul>
+					<input id="name" />
+					<input id="send" />
+					<button>Send</button>
+				</td>
+			</tr>
+		</table>
+
+	</div>
 </body>
 </html>

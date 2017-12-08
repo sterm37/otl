@@ -13,15 +13,13 @@ var GAME;
 initGame();
 
 io.sockets.on('connection',function(socket){
+	socket.on('m',function(data){
+		io.sockets.emit('m',data);
+	});
 	socket.on('enter',function(){
 		var game = GAME,player = game.players.length+1;
 		game.players.push(socket);
-		socket.on('test',function(){
-			console.log('test');
-		});
-
 		socket.emit('accept',{player: player, board: game.board});
-
 		socket.on('hand',function(hand){
 			var x = parseInt(hand[0]),y=parseInt(hand[1]);
 			var conds = {
@@ -44,9 +42,7 @@ io.sockets.on('connection',function(socket){
 			else
 				gameEnd(game, othello.anotherPlayer(player));
 		});
-		console.log('ready')
 		if(game.players.length === 2){
-			console.log('start')
 			game.turn = 1;
 			initGame();
 			postBoard(game);
@@ -55,7 +51,6 @@ io.sockets.on('connection',function(socket){
 });
 
 function initGame(){
-	console.log('init');
 	GAME = {
 		players: [],
 		board: othello.BoardArray(8),

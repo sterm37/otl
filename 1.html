@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test chat</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		$(document).ready(function(){
+			
+			var socket = io.connect();
+			socket.emit('c')
+			socket.on('m',function(data){
+				var output = '';
+				output +='<li>';
+				output +='<p>'+data.name+'</p>';
+				output +=	'<p>'+data.send+'</p>';
+				output +='</li>';
+
+				$(output).prependTo('#content');
+			});
+
+			$('button').click(function(){
+				socket.emit('c');
+				socket.emit('m',{
+					name:$('#name').val(),
+					send:$('#send').val()
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<input id="name" />
+	<input id="send" />
+	<button>Send</button>
+	<ul id="content" data-role="listview" data-inset="true" >
+						
+	</ul>
+</body>
+</html>

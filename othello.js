@@ -47,7 +47,10 @@ function anotherPlayer(player){
 }
 
 function winner(board){
-	var winning_players = maxes([1,2],function(player){ return count(board,player);});
+	var winning_players = maxes([1,2],function(player){
+	 return count(board,player);
+	});
+
 	if(winning_players.length>1)
 		return 0;
 	else
@@ -65,9 +68,10 @@ function hands(board,player){
 		var point = indexToPoint(board,i);
 		if(i>= square(board))
 			return 0;
-		else if(getOccupant(board,point[0],point[1]) === 0)
-			return hands(i+1)+(handReverseNum(board,player,point[0],point[1])>0 ? 1 : 0);
-		else
+		else if(getOccupant(board,point[0],point[1]) === 0){
+			return hands(i+1)+
+			(handReverseNum(board,player,point[0],point[1])>0 ? 1 : 0);
+		}else
 			return hands(i+1);
 	};
 	return hands(0);
@@ -125,10 +129,11 @@ function toDrawFormat(board){
 }
 
 function boardDiff(before,after){
+
 	var f = function(i,diff){
-		if(i===before.length || i === after.length)
+		if(i===before.length || i === after.length){
 			return diff;
-		else if(before[i] === after[i])
+		}else if(before[i] === after[i])
 			return f(i+1,diff);
 		else{
 			var point = indexToPoint(before,i), x=point[0],y=point[1];

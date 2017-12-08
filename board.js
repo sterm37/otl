@@ -45,15 +45,16 @@ function genBoard(SQUARE_SIZE, GRID_SIZE,OUT_BOARDER,BOARD_SIZE){
 		for(var i=0;i<BOARD_SIZE;i++){
 			for(var j=0;j<BOARD_SIZE;j++){
 				svg.circle(function(gcircle){
+					gcircle['class']='guide_stone';
 					gcircle.id='guide_stone' + i + '-' + j
 					gcircle.cx = OUT_BOARDER + (SQUARE_SIZE + GRID_SIZE) * i + SQUARE_SIZE / 2;
 					gcircle.cy = OUT_BOARDER + (SQUARE_SIZE + GRID_SIZE) * j + SQUARE_SIZE / 2;
-					gcircle.r = (SQUARE_SIZE - 34 ) / 2;
-					gcircle.style = 'fill:green';
+					gcircle.r = 0;
+					gcircle.style = 'fill:blue';
 				});
 			}
 		}
-	}).toString();/*수를 문자열로 리턴 */
+	}).toString();/*문자열로 리턴 */
 }
 
 function rect(def){
@@ -72,8 +73,7 @@ function svg(def){
 	var elements = [];
 	var attr = {
 		rect: function(def){ elements.push(rect(def)); },
-		circle: function(def){elements.push(circle(def)); },
-		gcircle: function(def){elements.push(gcircle(def)); }
+		circle: function(def){elements.push(circle(def)); }
 	};
 
 	def(attr);
