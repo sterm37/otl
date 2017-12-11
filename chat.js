@@ -1,18 +1,22 @@
 $(document).ready(function(){
 	var player;
+	var i = 0;
 	var socket = io.connect('http://localhost:52273/');
-	socket.emit('test','chat')
+
+	socket.on('col',function(data){
+		player[i] = data;
+		i++
+	})
 
 	socket.on('m',function(data){
 		var output = '';
 		output +='<li>';
-		output +='<p>'+data.name+'</p></span>';
-		output +=	'<h4>'+data.send+'</h4>';
+		output +='<font size"2em" color = "'+player+'">'+data.name+'</font>';
+		output +=	'<h5>'+data.send+'</h5>';
 		output +='</li>';
-
 		$(output).prependTo('#content');
+		$('#send').val("");
 	});
-
 	$('button').click(function(){
 		socket.emit('m',{
 			name:$('#name').val(),

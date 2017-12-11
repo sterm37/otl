@@ -10,6 +10,7 @@
 	<style>
 		ul {
 			height: <%= hei %>
+			overflow: hidden;
 		}
 	</style>
 </head>
@@ -23,10 +24,12 @@
 				<td>
 					<%- boardsvg %>
 				</td>
-				<td style="background: grey;" valign="bottom" align="left" height="<%= hei %>>" style="">
-					<ul id="content" data-role="listview" data-inset="true" >
-						
-					</ul>
+				<td style="background: grey;" valign="bottom" align="left">
+					<div id="chatbox" style="overflow-y: scroll;height: <%= hei %>px">
+						<ul id="content" data-role="listview" data-inset="true" >
+							
+						</ul>
+					</div>
 					<input id="name" />
 					<input id="send" />
 					<button>Send</button>

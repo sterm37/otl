@@ -17,7 +17,7 @@ var action = {
 			title: 'testroom',
 			boardsvg: svg.genBoard(squad,grid,border,size),
 			chat: '<script src="/chat.js"></script>',
-			hei : squad * size + grid * (size - 1) + border * 2,
+			hei : (squad * size + grid * (size - 1) + border * 2) * 0.75,
 			message: 'Waiting....'
 		}));
 	},

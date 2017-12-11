@@ -6,6 +6,7 @@ socket.emit('enter');
 socket.on('accept',function(data){
 	var player = data.player;
 	clickbind(data.board, player);
+	socket.emit('pl',player);
 	socket.on('board', function(data){
 		latest_board = data.board;
 		guideDiff(latest_board,player);
@@ -22,6 +23,10 @@ socket.on('accept',function(data){
 				'winner: ' + toColor(data.winner) + ')');
 	});
 
+	socket.on('color',function(){
+		console.log('test: '+player);
+		return player;
+	})
 
 });
 

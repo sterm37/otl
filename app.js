@@ -13,12 +13,19 @@ var GAME;
 initGame();
 
 io.sockets.on('connection',function(socket){
+
 	socket.on('m',function(data){
 		io.sockets.emit('m',data);
 	});
+
 	socket.on('enter',function(){
 		var game = GAME,player = game.players.length+1;
 		game.players.push(socket);
+
+		socket.on('pl',function(data){
+			var pldata = othello.toColor(data);
+			socket.emit('col',pldata);
+		});
 		socket.emit('accept',{player: player, board: game.board});
 		socket.on('hand',function(hand){
 			var x = parseInt(hand[0]),y=parseInt(hand[1]);
